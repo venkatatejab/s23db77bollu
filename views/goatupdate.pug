@@ -1,0 +1,57 @@
+extends layout
+
+block content
+  h1= title
+
+  if(toShow == null)
+    h2 No instance to update
+  else
+    - let goatid = toShow._id
+    - let goat_color = toShow.goat_color
+    - let goat_breed = toShow.goat_breed
+    - let goat_price = toShow.goat_price
+    - let actionid = "/resource/goats/" + goatid
+    script let actionid = "#{actionid}"
+    div.row(class='mb-2')
+    div.mr-1 ID is 
+      span(style="color:red")  #{goatid}
+    form(id='goatForm', action= actionid, method="PUT")
+      div.form-group
+      div(class="row g-3 align-items-center")
+        div(class="col-1")
+          label.goatAttr(for='goat_color',class="col-form-label") goat Colour
+        div(class="col-auto")
+          input#goat_color(type='text', name='goat_color',class="form-control", value=goat_color)
+      div.form-group
+      div(class="row g-3 align-items-center")
+        div(class="col-1")
+          label.goatAttr(for='goat_breed',class="col-form-label") goat Breed 
+        div(class="col-auto")
+          input#goat_breed(type='text', name='goat_breed',class="form-control", value=goat_breed)
+      div.form-group
+      div(class="row g-3 align-items-center")
+        div(class="col-1")
+          label.goatAttr(for='goat_price',class="col-form-label") goat cost
+        div(class="col-auto")
+          input#goat_price(type='number', name='goat_price',class="form-control", value=goat_price)
+      input(class="btn btn-danger m-2" type="submit")
+        //- button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+      button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+    
+    script.
+      document.forms['goatForm'].addEventListener('submit', (event) => {
+       event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+       fetch(event.target.action, {
+        method: 'PUT',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+        }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+        alert("Update succeded")
+        // TODO handle body
+        }).catch((error) => {
+        // TODO handle error
+        alert("Update failed " + error )
+       });
+      });

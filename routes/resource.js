@@ -18,3 +18,4 @@ router.get('/goats/:id', goat_controller.goat_detail);
 // GET request for list of all goat items.
 router.get('/goats', goat_controller.goat_list);
 module.exports = router;
+

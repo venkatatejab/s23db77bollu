@@ -10,8 +10,7 @@ require('dotenv').config();
 const connectionString =
 process.env.MONGO_CON
 mongoose = require('mongoose');
-mongoose.connect(connectionString
-);
+mongoose.connect(connectionString);
 
 var db = mongoose.connection;
 //Bind connection to error event

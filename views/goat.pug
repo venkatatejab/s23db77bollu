@@ -7,14 +7,19 @@ block content
         - let o;
         div(class="row")
             each form,item in results
+                - let destination = `dispatch(\"/goat/update?id=${form._id}\")`
                 div(class = "col-sm-2 bg-primary" onclick=`buy(${item})`) #{form.goat_color}              
                 div(class = "col-sm-2 bg-primary" onclick=`buy(${item})`) #{form.goat_breed}                
                 div(class = "col-sm-2 bg-primary" onclick=`buy(${item})`) #{form.goat_price}
+                   button.btn( class="btn-primary ml-1", onclick= destination) Update
                 hr
 
     br
     
     script.
+        function dispatch(path){
+            window.location.href=path
+        }
         function buy(itemNo)
         {
             alert(`You purchased Item ${itemNo+1}`)

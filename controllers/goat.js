@@ -55,8 +55,7 @@ exports.goat_view_all_Page = async function(req, res) {
     res.send(`{"error": ${err}}`);
     }
    }
-// for a specific goat.
-exports.goat_detail = async function(req, res) {
+   exports.goat_detail = async function(req, res) {
     console.log("detail" + req.params.id)
     try {
     result = await goat.findById( req.params.id)
@@ -65,5 +64,34 @@ exports.goat_detail = async function(req, res) {
     res.status(500)
     res.send(`{"error": document for id ${req.params.id} not found`);
     }
-    }; 
-  
+   };
+exports.goat_update_put = async function(req, res) {
+    console.log(`update on id ${req.params.id} with body
+   ${JSON.stringify(req.body)}`)
+    try {
+    let toUpdate = await goat.findById( req.params.id)
+    // Do updates of properties
+    if(req.body.goat_color)
+    toUpdate.goat_color = req.body.goat_color;
+    if(req.body.goat_breed) toUpdate.goat_breed = req.body.goat_breed;
+    if(req.body.goat_price) toUpdate.goat_price = req.body.goat_price;
+    let result = await toUpdate.save();
+    console.log("Sucess " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": ${err}: Update for id ${req.params.id}
+   failed`);
+    }
+   };
+   exports.goat_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await goat.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
+    }

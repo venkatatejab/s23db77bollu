@@ -1,0 +1,23 @@
+extends layout
+block content
+ h1= title
+ if(toShow == null)
+    h2 No instance to update
+ else
+ - let goatid = toShow._id
+ - let goat_color = toShow.goat_color
+ - let goat_breed = toShow.goat_breed
+ - let goat_price = toShow.goat_price
+ div
+ div.row
+  div(class='goatAttr mr-3') goat ID is:
+  div #{goatid}
+ div.row
+ div(class='goatAttr mr-3') goat Color is:
+ div #{goat_color}
+ div.row
+ div(class='goatAttr mr-3') goat Breed is:
+ div #{goat_breed}
+ div.row
+ div(class='goatAttr mr-3') goat Cost is:
+ div #{goat_price}

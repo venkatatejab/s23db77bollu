@@ -94,4 +94,53 @@ exports.goat_update_put = async function(req, res) {
     res.status(500)
     res.send(`{"error": Error deleting ${err}}`);
     }
+<<<<<<< HEAD
     }
+=======
+    }
+    exports.goat_view_one_Page = async function(req, res) {
+        console.log("single view for id " + req.query.id)
+        try{
+        result = await goat.findById( req.query.id)
+        res.render('goatdetail',
+        { title: 'goat Detail', toShow: result });
+        }
+        catch(err){
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+        }
+        };
+        exports.goat_create_Page = function(req, res) {
+            console.log("create view")
+            try{
+            res.render('goatcreate', { title: 'goat Create'});
+            }
+            catch(err){
+            res.status(500)
+            res.send(`{'error': '${err}'}`);
+            }
+            };
+            exports.goat_update_Page = async function(req, res) {
+                console.log("update view for item "+req.query.id)
+                try{
+                let result = await goat.findById(req.query.id)
+                res.render('goatupdate', { title: 'goat Update', toShow: result });
+                }
+                catch(err){
+                res.status(500)
+                res.send(`{'error': '${err}'}`);
+                }
+                };
+                exports.goat_delete_Page = async function(req, res) {
+                    console.log("Delete view for id " + req.query.id)
+                    try{
+                    result = await goat.findById(req.query.id)
+                    res.render('goatdelete', { title: 'goat Delete', toShow:
+                    result });
+                    }
+                    catch(err){
+                    res.status(500)
+                    res.send(`{'error': '${err}'}`);
+                    }
+                    };
+>>>>>>> da218e5724ed77f00797b0bf289c8922e9f23f33

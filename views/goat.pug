@@ -1,26 +1,31 @@
 extends layout
-block content
-    div(class="container-fluid")
-        h1= title
-         
-        - let items = results;
-        - let o;
-        div(class="row")
-            each form,item in results
-                - let destination = `dispatch(\"/goat/update?id=${form._id}\")`
-                div(class = "col-sm-2 bg-primary" onclick=`buy(${item})`) #{form.goat_color}              
-                div(class = "col-sm-2 bg-primary" onclick=`buy(${item})`) #{form.goat_breed}                
-                div(class = "col-sm-2 bg-primary" onclick=`buy(${item})`) #{form.goat_price}
-                   button.btn( class="btn-primary ml-1", onclick= destination) Update
-                hr
 
-    br
-    
-    script.
-        function dispatch(path){
-            window.location.href=path
-        }
-        function buy(itemNo)
-        {
-            alert(`You purchased Item ${itemNo+1}`)
-        }
+block content
+  h1= title
+  //- - let items = ['goat_type','quantity','cost']
+  - let items = results;
+  - let o;
+  script.
+    function buy(x){
+      alert('purchased item ' + x)
+   } 
+  div(class='container-fluid')
+    a(class="btn btn-danger" href="/goat/create") Create
+    div(class='row m-1')
+    div(class="row row-cols-1 row-cols-sm-4 g-6")
+      each item,index in items
+        - let destination = `dispatch(\"/goat/update?id=${item._id}\")`
+        - let details = `dispatch(\"/goat/detail?id=${item._id}\")` 
+      
+        div(class="goatd text-white bg-dark mb-3" class='col' class='goatd' class='goatd-body' class='goatd-text' onclick='buy('+index+')') Item #{item.goat_color}(#{item.goat_breed})is #{item.goat_price} 
+          <br><br>
+          span(class="btn btn-primary", onclick= details) Details
+          <br>
+          a(class="btn btn-secondary", href="/goat/delete/?id="+item._id) Delete
+          <br>
+          button.btn( class="btn-success ml-1", onclick= destination) Update
+
+  script.
+    function dispatch(path){
+      window.location.href=path
+    }
